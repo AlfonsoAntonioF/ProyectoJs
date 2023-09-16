@@ -158,10 +158,11 @@ function VenderAmbos(array1,array2) {
   let op;
   ExamenesTotales = array1.length;
   GuiasTotales = array2.length;
+  mostrarCatalogo(array1);
   if (ExamenesTotales > 0 && GuiasTotales > 0) {
     let idCompra = parseInt(
       prompt(
-        "Observar el catalogo de Examenes en consola y seleccionar ID de la Guia que desea comprar."
+        "Observar el catalogo de Examenes en consola y seleccionar ID del Examen que desea comprar."
       )
     );
     let coincidencia = false;
@@ -181,6 +182,7 @@ function VenderAmbos(array1,array2) {
         `El id ${idCompra} no coincide con ningun examen de nuestro catálogo. No se puede realizar la venta`
       );
     }
+    mostrarCatalogo(array2);
 
     let idCompraG = parseInt(
       prompt(

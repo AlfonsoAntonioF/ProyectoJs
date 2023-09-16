@@ -154,16 +154,58 @@ function VenderExamen(array) {
   return op;
 }
 
-function VenderAmbos() {
+function VenderAmbos(array1,array2) {
   let op;
+  ExamenesTotales = array1.length;
+  GuiasTotales = array2.length;
   if (ExamenesTotales > 0 && GuiasTotales > 0) {
-    ExamenesTotales--;
-    GuiasTotales--;
-    op = parseInt(
+    let idCompra = parseInt(
       prompt(
-        "Examen y Guia Vendido con exito\n Para Regresar al menu principal preciona 5"
+        "Observar el catalogo de Examenes en consola y seleccionar ID de la Guia que desea comprar."
       )
     );
+    let coincidencia = false;
+    for (let elem of array1) {
+      if (elem.id == idCompra) {
+        //indexOf me devuelve el indice del valor que paso con parámetro // si devuelve -1 no encontro
+        let indice = array1.indexOf(elem);
+        //qué método me permite borrar de un array ubicando posición
+        array1.splice(indice, 1);
+        coincidencia = true;
+        console.log(`La ${elem.titulo} con id ${idCompra} se ha vendido con exito`);
+        mostrarCatalogo(array1);
+      }
+    }
+    if (!coincidencia) {
+      console.log(
+        `El id ${idCompra} no coincide con ningun examen de nuestro catálogo. No se puede realizar la venta`
+      );
+    }
+
+    let idCompraG = parseInt(
+      prompt(
+        "Observar el catalogo de Guias en consola y seleccionar ID de la Guia que desea comprar."
+      )
+    );
+    let coincidenciaG = false;
+    for (let elem of array2) {
+      if (elem.id == idCompraG) {
+        //indexOf me devuelve el indice del valor que paso con parámetro // si devuelve -1 no encontro
+        let indice = array2.indexOf(elem);
+        //qué método me permite borrar de un array ubicando posición
+        array2.splice(indice, 1);
+        coincidenciaG = true;
+        console.log(`La ${elem.titulo} con id ${idCompra} se ha vendido con exito`);
+        mostrarCatalogo(array2);
+      }
+    }
+    if (!coincidenciaG) {
+      console.log(
+        `El id ${idCompra} no coincide con ninguna Guia de nuestro catálogo. No se puede realizar la venta`
+      );
+    }
+
+
   } else if (ExamenesTotales > 0) {
     op = parseInt(
       prompt(
@@ -319,7 +361,7 @@ do {
         op = VenderExamen(EstanteriaExamenes);
         break;
       case 4:
-        op = VenderAmbos();
+        op = VenderAmbos(EstanteriaExamenes,EstanteriaGuias);
         break;
       case 5:
         AgregarNuevaGuia(EstanteriaGuias);

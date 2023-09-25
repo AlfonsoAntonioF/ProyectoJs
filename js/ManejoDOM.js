@@ -1,9 +1,12 @@
 // variables
 const EstanteriaGuias = [];
 const EstanteriaExamenes = [];
+let productosCarrito = [];
 let GuiasTotales = 0;
 let ExamenesTotales = 0;
 let op;
+let guardarLibroBtn = document.getElementById("guardarLibroBtn")
+let buscador = document.getElementById("buscador")
 // clases
 class Guias {
   constructor(id, titulo, precio, area, img) {
@@ -41,28 +44,28 @@ const Guia1 = new Guias(
   "Guia de preparacion para el examen de admision Basico",
   172.8,
   "Ing y Ciencias Exactas",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 const Guia2 = new Guias(
   2,
   "Guia de preparacion para el examen de admision Basico",
   152.75,
   "Ciencias Biologicas , Quimicas y de la salud",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 const Guia3 = new Guias(
   3,
   "Guia de preparacion para el examen de admision Basico",
   158.25,
   "Ciencias Sociales",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 const Guia4 = new Guias(
   4,
   "Guia de preparacion para el examen de admision Basico",
   145.9,
   "Humanidades y de las Artes",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 
 const Examen1 = new ExamenesSimulacion(
@@ -96,7 +99,7 @@ const Examen4 = new ExamenesSimulacion(
 
 //EstanteriaGuias.push(Guia1,Guia2,Guia3,Guia4)
 //EstanteriaExamenes.push(Examen1,Examen2,Examen3,Examen4)
-let productosCarrito = [];
+
 
 if (localStorage.getItem("EstanteriaGuias")) {
   // estanteria = JSON.parse(localStorage.getItem("estanteria"))
@@ -107,7 +110,7 @@ if (localStorage.getItem("EstanteriaGuias")) {
       Guia.titulo,
       Guia.precio,
       Guia.area,
-      Guia.imagen
+      Guia.img
     );
     EstanteriaGuias.push(libroStorage);
   }
@@ -130,7 +133,7 @@ function mostrarCatalogoDOM(array) {
     libroNuevoDiv.className = "col-12 col-md-6 col-lg-4 my-2";
     libroNuevoDiv.innerHTML = `
             <div id="${libro.id}" class="card" >
-                    <img class="card-img-top img-fluid" style="height: 200px;"src="../assets/img/ICEBas.png" alt="${libro.titulo} de ${libro.area} ">
+                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${libro.img}" alt="${libro.titulo} de ${libro.area} ">
                     <div class="card-body">
                         <h4 class="card-title"></h4>
                         <p>Area: ${libro.area}</p>
@@ -154,6 +157,38 @@ function mostrarCatalogoDOM(array) {
     });
   }
 }
+ 
+function agregarLibro(array){
+  
+  let titulo = document.getElementById("tituloInput")
+  let precio = document.getElementById("precioInput")
+  let area = document.getElementById("areaInput")
+  //instanciarlo en un objeto:
+  const nuevoLibro = new Guias (array.length+1,titulo.value, parseInt(precio.value),area.value, "ICEBas.png")
+  array.push(nuevoLibro)  
+  area.value =""
+  titulo.value =""
+  precio.value ="" 
+    
+  // formCargarLibro.reset()  
+  //SETEAR STORAGE 
+  localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias))
+}
 
+function agregarCarrito(Producto){
+  let guiaAgregada = productosCarrito.find((Guia) => Guia.id == Producto.id)
+  guiaAgregada == undefined ? (
+    productosCarrito.push(Producto),
+    localStorage.setItem("productosCarrito", JSON.stringify(productosCarrito)),
+    console.log(productosCarrito)):
+    console.log(`La Guia ${Producto.titulo} ya existe en el carrito`)
+}
+
+//Eventos 
+guardarLibroBtn.addEventListener("click",() => {
+  agregarLibro(EstanteriaGuias)
+  mostrarCatalogoDOM(EstanteriaGuias)
+}
+)
 //CÓDIGO
 mostrarCatalogoDOM(EstanteriaGuias);

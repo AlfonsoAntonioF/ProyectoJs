@@ -34,6 +34,9 @@
             <li><a href="../template/registro.html">REGISTRO</a></li>
             <li><a href="../template/login.html">INICIO DE SESIÓN</a></li>
             <li><a href="../template/about.html">ACERCA DE NOSOTROS</a></li>
+            <li>
+              <a id="botonCarrito" data-bs-toggle="modal" data-bs-target="#idModalCarrito" class="btn btn-secondary"><i class="fas fa-shopping-cart fa-1x"></i></a>
+          </li>
           </ul>
         </div>
         <span class="navTrigger">
@@ -53,12 +56,69 @@
     <div class="TitulosTemplate">
       <h1>Conoce nuestros Simuladores y guias de estudios </h1>
     </div>
+    <div class="menuBuscador">
+        <ul>
+          <form class="MenuBuscador">
+          <input id="buscador"class="form-control me-2 " placeholder="Qué estas buscando?" aria-label="Search">
+          </form>
+          <button id="agregarLibro" data-bs-toggle="modal" data-bs-target="#idModalAgregarLibro" class="btn btn-success">Agregar libro</button>
+        </ul>
+        <ul>
+          <select id="selectOrden" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option selected>Ordenar por:</option>
+            <option value="1">Mayor a menor</option>
+            <option value="2">Menor a mayor</option>
+            <option value="3">Alfabeticamente</option>
+          </select>
+        </ul>
+    </div>
+    
 
     <!--CONTAINER LIBROS-->
     <div id="coincidencias" class=""></div>
     
     <div class="container-fluid containers">
       <div id="Guias" class="row"></div>
+    </div>
+    <!--Modal Agregar Libro-->
+    <div class="modal fade" id="idModalAgregarLibro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content"><!--id, titulo, precio, area, img-->
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar Guía</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <!--Formulario-->
+            <form id="formCargarLibro" class="my-4">
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="tituloInput" aria-describedby="titulo">
+                
+              </div>
+              <div class="mb-3">
+                <label for="area" class="form-label">Area</label>
+                <input type="text" class="form-control" id="areaInput" aria-describedby="area">
+                
+              </div>
+              <div class="mb-3">
+                <label for="precio" class="form-label">Precio:</label>
+                <input type="text" class="form-control" id="precioInput" aria-describedby="precio">
+                
+              </div>
+              
+          </form>
+          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Libro</button>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Libro</button>
+        </div>
+
+
+        </div>
+      </div>
     </div>
 
     <!-- -----------Script----------- -->

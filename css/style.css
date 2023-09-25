@@ -9,7 +9,7 @@ body {
 }
 
 html {
-    background-color: #dee2de;
+    background-color: #ffffff;
 }
 
 /*-- Inspiration taken from abdo steif -->
@@ -67,12 +67,18 @@ html {
     text-decoration: none;
     color: #ffffff;
     line-height: 45px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: lighter;
 }
 
+.nav div.main_list ul li a {
+    background-color: #0b0b0b00;
+    border-color: #0b0b0b00;
+
+}
+
 .nav div.main_list ul li a:hover {
-    color: #00E676;
+    color: #516de9e8;
 }
 
 
@@ -788,4 +794,33 @@ footer .container{
   .log-form .forgot:hover {
     color: #1ba0a9;
   }
-  
+
+  /*** ------------  MENU BUSCADOR   ----------------***/
+
+.menuBuscador{
+    display:inline-flex;
+    width: 100%;
+    align-content: space-around;
+    
+
+}
+.menuBuscador ul{
+    width: 100%;
+    padding: 2rem;
+    margin: 2rem;
+    display: inline-flex;
+    align-content: space-around;
+}
+
+.menuBuscador ul form{
+    width: 100%;
+    margin: 1rem;
+    align-content: space-between;
+    
+
+}
+
+.menuBuscador ul #agregarLibro{
+    width: 30%;
+    align-content: space-between;
+}

@@ -87,16 +87,22 @@ html {
     transition: all 0.4s ease;
 }
 
+.Titles{
+    position: sticky;
+    display: flex;
+    width: 100vw;
+
+}
 
 /* Media qurey section */
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 900px) and (max-width: 1024px) {
     .container {
         margin: 0;
     }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:900px) {
     .navTrigger {
         display: block;
     }
@@ -145,7 +151,23 @@ html {
     }
 }
 
+h1{
+    text-align: center;
+    font-weight:900;
+    padding: 2rem;
+    color: #e0dfe4;
+
+}
+
+.TitulosTemplate{
+    background-color: #052ec3;
+    align-content: center;
+    margin: 0 0 3rem 0;
+    padding: 1rem; 
+}
+
 .home {
+    
     background-color: #0b0b0b;
     height: 70vh;
     width: 100%;
@@ -196,6 +218,41 @@ html {
    */
 }
 
+.container-fluid{
+    background-color: #071095;
+    padding: 5rem;
+    align-content: space-around;
+
+
+}
+.card{
+    align-content: space-around;
+    width: 70%;
+    height: 100%;
+    padding: 2rem;
+    margin: 2rem;
+    color: #0c216d;
+    position: inherit;
+
+}
+.card p{
+    font-size: 15px;
+    font-weight: bolder;
+
+}
+
+.card .btn{
+    color: #071095;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-color: #1a0474;
+    border-width: 2px;
+}
+
+.card .btn:hover{
+    color: #f3f6f8;
+    background-color: #071095;
+}
 /* Animation */
 /* Inspiration taken from Dicson https://codemyui.com/simple-hamburger-menu-x-mark-animation/ */
 
@@ -415,10 +472,12 @@ html {
 
 
 /*--------------------------footer---------------------------- */
-
-.site-footer {
-    background-color: #26272b;
+footer .container{
     width: 100%;
+}
+.site-footer {
+    background-color: #101217;
+    /*width: 100vw;*/
     margin: 0;
     padding: 45px 0 20px;
     font-size: 15px;
@@ -427,7 +486,8 @@ html {
 }
 
 .site-footer .row {
-    align-content: space-around;
+    width: 100%;
+    align-content: space-between;
     display: inline-flex;
 
 }
@@ -614,3 +674,118 @@ html {
         font-weight: 600;
     }
 }
+
+.Caja{
+    background-color: #190777;
+    align-content: center;
+    padding: 2rem 3rem;
+    height: auto;
+
+}
+/**** Formulario CSS */
+
+
+
+.log-form {
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(65%, 0%);
+    
+   /* min-width: 320px;*/
+    /*max-width: 475px;*/
+    background: #100b55;
+    /*position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);*/
+  }
+  @media (max-width: 900px) {
+    .log-form {
+      width: 100%;
+      margin: 2.5% auto 0 auto;
+      left: 0%;
+      -webkit-transform: translate(0%, 0%);
+      -moz-transform: translate(0%, 0%);
+      -o-transform: translate(0%, 0%);
+      -ms-transform: translate(0%, 0%);
+      transform: translate(0%, 0%);
+    }
+    .log-form h2{
+        width: 100%;
+    }
+  }
+  .log-form form {
+    display: block;
+    /*width: 100%;*/
+    padding: 2em;
+  }
+  .log-form h2 {
+    color: #f5f0f0;
+    font-family: "open sans condensed";
+    font-size: 1.35em;
+    font-weight: bolder;
+    display: block;
+    background: #2a2a2a;
+    width: 80%;
+    padding: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0.75em 1em 0.75em 1.5em;
+    box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid #1d1d1d;
+    margin: 3rem;
+    font-weight: 200;
+  }
+  .log-form input {
+    display: block;
+    margin: auto auto;
+    width: 100%;
+    margin-bottom: 2em;
+    padding: 0.5em 0;
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1.25em;
+    color: #180b85;
+  }
+  .log-form input:focus {
+    outline: none;
+  }
+  .log-form .btn {
+    display: inline-block;
+    background: #3b72e8;
+    border: 1px solid #e1eaeb;
+    padding: 0.5em 2em;
+    color: white;
+    font-weight: lighter;
+    margin-right: 0.5em;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .log-form .btn:hover {
+    background: #170772;
+  }
+  .log-form .btn:active {
+    background: #1fb5bf;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  .log-form .btn:focus {
+    outline: none;
+  }
+  .log-form .forgot {
+    color: #cbe3e5;
+    line-height: 0.5em;
+    position: relative;
+    top: 2.5em;
+    text-decoration: none;
+    font-size: 0.75em;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+  .log-form .forgot:hover {
+    color: #1ba0a9;
+  }
+  

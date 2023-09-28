@@ -5,8 +5,15 @@ let productosCarrito = [];
 let GuiasTotales = 0;
 let ExamenesTotales = 0;
 let op;
+// Variables de captura DOM
 let guardarLibroBtn = document.getElementById("guardarLibroBtn")
 let buscador = document.getElementById("buscador")
+let coincidenciasDiv = document.getElementById("coincidencias")
+let modalBodyCarrito = document.getElementById("modal-bodyCarrito")
+let botonCarrito = document.getElementById("botonCarrito")
+let precioTotal = document.getElementById("precioTotal")
+let containerGuias = document.getElementById("Guias");
+let formCargarLibro = document.getElementById("formCargarLibro")
 // clases
 class Guias {
   constructor(id, titulo, precio, area, img) {
@@ -121,40 +128,38 @@ if (localStorage.getItem("EstanteriaGuias")) {
   localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias));
 }
 
-//CAPTURA DOM
-let containerGuias = document.getElementById("Guias");
-
 function mostrarCatalogoDOM(array) {
   //resetear el container
   containerGuias.innerHTML = "";
   //for of: para recorrer un array posición a posición id, titulo, precio, area, img
-  for (let libro of array) {
+  for (let Guia of array) {
     let libroNuevoDiv = document.createElement("div");
     libroNuevoDiv.className = "col-12 col-md-6 col-lg-4 my-2";
     libroNuevoDiv.innerHTML = `
-            <div id="${libro.id}" class="card" >
-                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${libro.img}" alt="${libro.titulo} de ${libro.area} ">
+            <div id="${Guia.id}" class="card" >
+                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${Guia.img}" alt="${Guia.titulo} de ${Guia.area} ">
                     <div class="card-body">
                         <h4 class="card-title"></h4>
-                        <p>Area: ${libro.area}</p>
-                        <p>${libro.titulo}</p>
+                        <p>Area: ${Guia.area}</p>
+                        <p>${Guia.titulo}</p>
                         <p class="$${
-                          libro.precio <= 3000 && "oferta"
-                        }">Precio: $${libro.precio} M/N</p>
+                          Guia.precio <= 3000 && "oferta"
+                        }">Precio: $${Guia.precio} M/N</p>
                     <button id="agregarBtn${
-                      libro.id
+                      Guia.id
                     }" class="btn btn-outline-success">Agregar al carrito</button>
                     </div>
         </div> `;
     containerGuias.append(libroNuevoDiv);
-    let agregarBtn = document.getElementById(`agregarBtn${libro.id}`);
+    let agregarBtn = document.getElementById(`agregarBtn${Guia.id}`)
     console.log(agregarBtn);
     agregarBtn.addEventListener("click", () => {
-      console.log("Funciona " + libro.titulo);
+      //console.log("Funciona " + Guia.titulo);
       //dentro del for of libro es mi objeto
-      productosCarrito.push(libro);
-      console.log(productosCarrito);
-    });
+      //productosCarrito.push(Guia);
+      //console.log(productosCarrito);
+      agregarAlCarrito(Guia)
+    })
   }
 }
  
@@ -174,8 +179,18 @@ function agregarLibro(array){
   //SETEAR STORAGE 
   localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias))
 }
+// Buscar guia 
+function busquedaDatos(elementoBusqueda,array){
+  let coincidencias = array.filter(
+    (Guia) => {
+      return Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase()) || Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase())
+    }
+  )
+  coincidencias.length > 0 ? ( mostrarCatalogoDOM(coincidencias), coincidenciasDiv.innerHTML=""  ): ( mostrarCatalogoDOM(array),coincidenciasDiv.innerHTML =  `<h3> No hay coincidencias con su búsqueda, revise nuestro catalogo completo</h3>` )
 
-function agregarCarrito(Producto){
+}
+
+function agregarAlCarrito(Producto){
   let guiaAgregada = productosCarrito.find((Guia) => Guia.id == Producto.id)
   guiaAgregada == undefined ? (
     productosCarrito.push(Producto),
@@ -184,11 +199,58 @@ function agregarCarrito(Producto){
     console.log(`La Guia ${Producto.titulo} ya existe en el carrito`)
 }
 
+function cargarProductosCarrito(array){
+  modalBodyCarrito.innerHTML = ""
+  array.forEach(
+      (productoCarrito) => {
+          modalBodyCarrito.innerHTML += `
+          <div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.id}" style="max-width: 540px;">
+               <img class="card-img-top" height="300px" src="../assets/img/${productoCarrito.img}" alt="">
+               <div class="card-body">
+                      <h4 class="card-title">${productoCarrito.titulo}</h4>
+                      <p class="card-text">${productoCarrito.area}</p>
+                       <p class="card-text">$${productoCarrito.precio}</p> 
+                       <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
+               </div>    
+          </div>
+          `
+      }
+  )
+  calcularTotal(array)    
+}
+
+
+function calcularTotal(array){
+  //function con spread (no necesariamente debe ser así)
+  
+  const totalReduce = array.reduce(
+      //dos parámetros: funcion e inicio de valor del acumulador
+      //atención que si su carrito maneja cantidad, debe ser precio *cantidad
+      (acumulador, Guia)=>
+      {return acumulador + Guia.precio},
+      0
+  )
+  totalReduce > 0 ? precioTotal.innerHTML = `<strong>El total de su compra es: ${totalReduce}</strong>` : precioTotal.innerHTML = `No hay productos en el carrito` 
+  //equivalentes:
+  // totalReduce == 0 ? precioTotal.innerHTML = `No hay productos en el carrito`  : precioTotal.innerHTML = `<strong>El total de su compra es: ${totalReduce}</strong>`
+}
+
 //Eventos 
 guardarLibroBtn.addEventListener("click",() => {
   agregarLibro(EstanteriaGuias)
   mostrarCatalogoDOM(EstanteriaGuias)
 }
 )
+
+buscador.addEventListener("input", () => {
+  console.log(buscador.value)
+  busquedaDatos(buscador.value,EstanteriaGuias)
+})
+
+botonCarrito.addEventListener("click", () => {
+  cargarProductosCarrito(productosCarrito)
+})
+
+
 //CÓDIGO
 mostrarCatalogoDOM(EstanteriaGuias);

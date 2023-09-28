@@ -61,7 +61,7 @@
           <form class="MenuBuscador">
           <input id="buscador"class="form-control me-2 " placeholder="Qué estas buscando?" aria-label="Search">
           </form>
-          <button id="agregarLibro" data-bs-toggle="modal" data-bs-target="#idModalAgregarLibro" class="btn btn-success">Agregar libro</button>
+          <button id="agregarLibro" data-bs-toggle="modal" data-bs-target="#idModalAgregarLibro" class="btn btn-success">Agregar Guía</button>
         </ul>
         <ul>
           <select id="selectOrden" class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -108,18 +108,44 @@
               </div>
               
           </form>
-          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Libro</button>
+          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Guía</button>
         </div>
         
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Libro</button>
+          <button type="text" id="guardarLibroBtn" class="btn btn-success" data-bs-dismiss="modal">Guardar Guía</button>
         </div>
 
 
         </div>
       </div>
     </div>
+
+    
+      <!--Modal Carrito-->
+      <div class="modal fade" id="idModalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Carrito de Compras</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-bodyCarrito">
+              
+            </div>
+            <div class="row ml-ato">
+              <p id="precioTotal"></p>
+            </div>
+            <div class="modal-footer">
+              
+              
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" data-bs-dismiss="modal" class="btn btn-success" id="botonFinalizarCompra">Finalizar Compra</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
     <!-- -----------Script----------- -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

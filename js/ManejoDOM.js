@@ -235,6 +235,41 @@ function calcularTotal(array){
   // totalReduce == 0 ? precioTotal.innerHTML = `No hay productos en el carrito`  : precioTotal.innerHTML = `<strong>El total de su compra es: ${totalReduce}</strong>`
 }
 
+//Funcion para ordenar con base al precio 
+
+function ordenarMayorAMenor(array){
+  let arrayMayor = array.concat()
+  arrayMayor.sort(
+    (a,b) => b.precio - a.precio
+  )
+  mostrarCatalogoDOM(arrayMayor)
+}
+
+function ordenarMenorAMayor(array){
+  let arrayMenor = array.concat()
+  arrayMenor.sort(
+    (a,b) => a.precio - b.precio
+  )
+  mostrarCatalogoDOM(arrayMenor)
+
+}
+
+
+function ordenarAlfabeticamenteTitulo(array){
+  let arrayAlfabetico = array.concat()
+  arrayAlfabetico.sort(
+    (a,b) => {
+      if (a.titulo < b.titulo) {return -1}
+      if (a.titulo > b.titulo) {return 1}
+      return 0
+    }
+  )
+  mostrarCatalogoDOM(arrayAlfabetico)
+}
+
+
+
+
 //Eventos 
 guardarLibroBtn.addEventListener("click",() => {
   agregarLibro(EstanteriaGuias)
@@ -250,7 +285,22 @@ buscador.addEventListener("input", () => {
 botonCarrito.addEventListener("click", () => {
   cargarProductosCarrito(productosCarrito)
 })
+selectOrden.addEventListener("change", () => {
+  switch (selectOrden.value) {
+    case "1":
+      ordenarMayorAMenor(EstanteriaGuias)
+    break
+    case "2":
+      ordenarMenorAMayor(EstanteriaGuias)
+    break
+    case "3":
+      ordenarAlfabeticamenteTitulo(EstanteriaGuias)
+    break
+    default:
+      mostrarCatalogoDOM(EstanteriaGuias)
 
+  }
+});
 
 //CÓDIGO
 mostrarCatalogoDOM(EstanteriaGuias);

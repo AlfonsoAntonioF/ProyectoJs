@@ -14,6 +14,11 @@ let botonCarrito = document.getElementById("botonCarrito")
 let precioTotal = document.getElementById("precioTotal")
 let containerGuias = document.getElementById("Guias");
 let formCargarLibro = document.getElementById("formCargarLibro")
+let formCargarExamen = document.getElementById("formCargarExamen");
+let containerExamenes = document.getElementById("Examenes");
+let coincidenciasDivExa = document.getElementById("coincidenciasExamenes")
+let buscadorExamen = document.getElementById("buscadorExamen")
+
 // clases
 class Guias {
   constructor(id, titulo, precio, area, img) {
@@ -80,28 +85,28 @@ const Examen1 = new ExamenesSimulacion(
   "Examen de simulacion Basico",
   175.6,
   "Ing y ciencias Exactas",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 const Examen2 = new ExamenesSimulacion(
   2,
   "Examen de simulacion Basico",
   145.65,
-  "Ciensias Biologicas, Quimicas y de la salud",
-  "../assets/img/ICEBas.png"
+  "Ciencias Biologicas,Quimicas y de la salud",
+  "ICEBas.png"
 );
 const Examen3 = new ExamenesSimulacion(
   3,
   "Examen de simulacion Basico",
   156.85,
   "Ciencias Sociales",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 const Examen4 = new ExamenesSimulacion(
   4,
   "Examen de simulacion Basico",
   165.7,
   "Humanidades y de las Artes",
-  "../assets/img/ICEBas.png"
+  "ICEBas.png"
 );
 
 //EstanteriaGuias.push(Guia1,Guia2,Guia3,Guia4)
@@ -128,6 +133,21 @@ if (localStorage.getItem("EstanteriaGuias")) {
   localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias));
 }
 
+if (localStorage.getItem("EstanteriaExamenes")) {
+  for (let Examen of JSON.parse(localStorage.getItem("EstanteriaExamenes"))){
+    let examenStorage = new ExamenesSimulacion(
+      Examen.id,
+      Examen.titulo,
+      Examen.precio,
+      Examen.area,
+      Examen.img
+    );
+    EstanteriaExamenes.push(examenStorage)
+  }
+} else {
+  EstanteriaExamenes.push(Examen1,Examen2,Examen3,Examen4);
+  localStorage.setItem("EstanteriaExamenes",JSON.stringify(EstanteriaExamenes));
+}
 function mostrarCatalogoDOM(array) {
   //resetear el container
   containerGuias.innerHTML = "";
@@ -162,6 +182,41 @@ function mostrarCatalogoDOM(array) {
     })
   }
 }
+function mostrarCatalogoDOMExamen(array) {
+  //resetear el container
+  containerExamenes.innerHTML = "";
+  //for of: para recorrer un array posición a posición id, titulo, precio, area, img
+  for (let Examen of array) {
+    let examenNuevoDiv = document.createElement("div");
+    examenNuevoDiv.className = "col-12 col-md-6 col-lg-4 my-2";
+    examenNuevoDiv.innerHTML = `
+            <div id="Ex${Examen.id}" class="card" >
+                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${Examen.img}" alt="${Examen.titulo} de ${Examen.area} ">
+                    <div class="card-body">
+                        <h4 class="card-title"></h4>
+                        <p>Area: ${Examen.area}</p>
+                        <p>${Examen.titulo}</p>
+                        <p class="$${
+                          Examen.precio <= 3000 && "oferta"
+                        }">Precio: $${Examen.precio} M/N</p>
+                    <button id="agregarBtnEx${
+                      Examen.id
+                    }" class="btn btn-outline-success">Agregar al carrito</button>
+                    </div>
+        </div> `;
+    containerExamenes.append(examenNuevoDiv);
+    let agregarBtnEx = document.getElementById(`agregarBtnEx${Examen.id}`)
+    console.log(agregarBtnEx);
+    agregarBtnEx.addEventListener("click", () => {
+      //console.log("Funciona " + Guia.titulo);
+      //dentro del for of libro es mi objeto
+      //productosCarrito.push(Guia);
+      //console.log(productosCarrito);
+      agregarAlCarrito(Examen)
+    })
+  }
+}
+
  
 function agregarLibro(array){
   
@@ -304,3 +359,4 @@ selectOrden.addEventListener("change", () => {
 
 //CÓDIGO
 mostrarCatalogoDOM(EstanteriaGuias);
+mostrarCatalogoDOMExamen(EstanteriaExamenes);

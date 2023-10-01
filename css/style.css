@@ -24,8 +24,11 @@ html {
     line-height: 65px;
     text-align: center;
 }
-
+.nav .container{
+    width: 100%;
+}
 .nav div.logo {
+    
     float: left;
     width: auto;
     height: auto;
@@ -36,10 +39,12 @@ html {
     text-decoration: none;
     color: #ffffff;
     font-size: 2.5rem;
+    font-weight: bold !important;
+    
 }
 
 .nav div.logo a:hover {
-    color: #0e0498;
+    color: #695ff5;
 }
 
 .nav div.main_list {
@@ -87,6 +92,8 @@ html {
 }
 
 .nav {
+    width: 100%;
+    align-content: space-around;
     padding-top: 20px;
     padding-bottom: 20px;
     -webkit-transition: all 0.4s ease;
@@ -94,12 +101,38 @@ html {
 }
 
 .Titles{
-    position: sticky;
+    
     display: flex;
     width: 100vw;
 
-}
 
+}
+.TitlesL{
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    background-color: #071095;
+
+}
+.TitlesL h1{
+    
+    text-align: center;
+    align-content: center;
+}
+.presentacion{
+    display: inline-flex;
+    text-align: justify;
+    margin: 2rem;
+    align-content: space-around;
+    padding: 1rem;
+}
+.presentacion p{
+    color: #071095;
+    margin: 2rem;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    
+}
 /* Media qurey section */
 
 @media screen and (min-width: 900px) and (max-width: 1024px) {
@@ -478,12 +511,16 @@ h1{
 
 
 /*--------------------------footer---------------------------- */
+
+.container{
+    width: auto;
+}
 footer .container{
     width: 100%;
 }
 .site-footer {
     background-color: #101217;
-    /*width: 100vw;*/
+    width: 100%;
     margin: 0;
     padding: 45px 0 20px;
     font-size: 15px;
@@ -499,7 +536,7 @@ footer .container{
 }
 
 .site-footer .row .col-xs-4 {
-    width: 33%;
+    width: 30%;
     text-align: justify;
     margin: 5px;
     padding: 3px;

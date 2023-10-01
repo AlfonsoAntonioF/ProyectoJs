@@ -1,130 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lobosimulador</title>
-    <link rel="stylesheet" href="./css/style.css">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
     <nav class="nav">
-        <div class="container">
-            <div class="logo">
-                <a href="./index.html">LoboSimuladorEGA<img src="" alt=""></a>
-            </div>
-            <div id="mainListDiv" class="main_list">
-                <ul clñlikujtrwass="navlinks">
-                    <li><a href="./template/index.html">INICIO</a></li>
-                    <li><a href="./template/cursos.html">CURSOS</a></li>
-                    <li><a href="./template/Simuladores.html">SIMULADORES</a></li>
-                    <li><a href="./template/registro.html">REGISTRO</a></li>
-                    <li><a href="./template/login.html">INICIO DE SESIÓN</a></li>
-                    <li><a href="./template/about.html">ACERCA DE NOSOTROS</a></li>
-                    <li>
-                        <a id="botonCarrito" data-bs-toggle="modal" data-bs-target="#idModalCarrito" class="btn btn-secondary"><i class="fas fa-shopping-cart fa-1x"></i></a>
-                    </li>
-                                    
-                </ul>
-            </div>
-            <span class="navTrigger">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
+      <div class="container">
+        <div class="logo">
+          <a href="./index.html">LoboSimuladorEGA<img src="" alt="" /></a>
         </div>
+        <div id="mainListDiv" class="main_list">
+          <ul class="navlinks">
+            <li><a href="./index.html">INICIO</a></li>
+            <li><a href="./template/Examenes.html">EXAMENES</a></li>
+            <li><a href="./template/Simuladores.html">GUIAS</a></li>
+            <li><a href="./template/registro.html">REGISTRO</a></li>
+            <li><a href="./template/login.html">INICIO DE SESIÓN</a></li>
+            <li><a href="./template/about.html">ACERCA DE NOSOTROS</a></li>
+            <li>
+              <a
+                id="botonCarrito"
+                data-bs-toggle="modal"
+                data-bs-target="#idModalCarrito"
+                class="btn btn-secondary"
+                ><i class="fas fa-shopping-cart fa-1x"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <span class="navTrigger">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+      </div>
     </nav>
-    
-    <section class="home">
-        
-    </section>
 
-    <div class="Titles">
-        <h1></h1>
-        
+    <section class="home"></section>
 
+    <div class="TitlesL">
+      <h1>¿Que es LoboSimuladorEGA?</h1>
     </div>
 
+    <div class="presentacion">
+      <div class="nosotrosLobo">
+        <img src="./assets/img/portada1.png" alt="" />
+      </div>
+      <div class="nosotrosLobotext">
+        <p>
+          Somos una empresa comprometida con el sueño de cada estudiante de
+          acceder a la educación superior.
+        </p>
+        <p>
+          Nuestras guías de estudio y exámenes de simulación son creados por
+          estudiantes que han pasado por el mismo proceso de preparación y
+          comprenden las necesidades y desafíos de sus compañeros.
+        </p>
+        <p>
+          Nos destacamos por la autenticidad de nuestros materiales y la
+          dedicación para proporcionar recursos que marquen la diferencia en el
+          camino hacia la universidad.
+        </p>
+        <p>
+          En nuestro núcleo, valoramos el aprendizaje, la igualdad de
+          oportunidades y el poder transformador de la educación, y nos
+          esforzamos por hacer realidad estos valores para cada estudiante que
+          confía en nosotros.
+        </p>
+      </div>
+    </div>
+    <div class="TitlesL">
+      <h1>Nuestra Mision y Vision</h1>
+    </div>
 
+    <div class="presentacion">
+      <div class="mision">
+        <h1>Mision</h1>
+        <p>
+          Facilitar el acceso a la educación superior a través de guías de
+          estudio y exámenes de simulación de alta calidad, creados por
+          estudiantes para estudiantes. Nos comprometemos a proporcionar
+          recursos confiables y efectivos que empoderen a los aspirantes
+          universitarios, ayudándoles a alcanzar sus metas académicas y
+          construir un futuro prometedor.
+        </p>
+      </div>
+      <div class="vision">
+        <h1>Vision</h1>
+        <p>
+          Ser la principal fuente de apoyo para los estudiantes que se preparan
+          para los exámenes de admisión universitaria, reconocidos por nuestra
+          excelencia, autenticidad y relevancia. Aspiramos a inspirar a
+          generaciones de estudiantes, fomentando un ambiente educativo donde el
+          conocimiento sea accesible para todos, independientemente de su origen
+          o circunstancias.
+        </p>
+      </div>
+    </div>
 
     <!-- -----------Script----------- -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="./js/script.js"></script>
-        <!-- Script Entregable 
+    <!-- Script Entregable 
     <script src="./js/scriptentregable.js"></script>-->
     <!-- Function used to shrink nav bar removing paddings and adding black background -->
     <script>
-        $(window).scroll(function () {
-            if ($(document).scrollTop() > 50) {
-                $(".nav").addClass("affix");
-                console.log("OK");
-            } else {
-                $(".nav").removeClass("affix");
-            }
-        });
+      $(window).scroll(function () {
+        if ($(document).scrollTop() > 50) {
+          $(".nav").addClass("affix");
+          console.log("OK");
+        } else {
+          $(".nav").removeClass("affix");
+        }
+      });
     </script>
 
+    <!-- Site footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-4 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">
+              O-live <br />
+              Empresa mexicana dedicada a la formación <br />
+              de materiales didácticos tecnólogicos para <br />
+              el aprendizaje del alumno
+            </p>
+          </div>
 
+          <div class="col-xs-4 col-md-3">
+            <h6>Categories</h6>
+            <ul class="footer-links">
+              <li><a href="">C</a></li>
+              <li><a href="">UI Design</a></li>
+              <li><a href="">PHP</a></li>
+              <li><a href="">Java</a></li>
+              <li><a href="">Android</a></li>
+              <li><a href="">Templates</a></li>
+            </ul>
+          </div>
 
-
-      <!-- Site footer -->
-      <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-4 col-md-6">
-                    <h6>About</h6>
-                    <p class="text-justify">
-                        O-live <br>
-                        Empresa mexicana dedicada a la formación <br>
-                        de materiales didácticos tecnólogicos para <br>
-                        el aprendizaje del alumno
-                    </p>
-                </div>
-
-                <div class="col-xs-4 col-md-3">
-                    <h6>Categories</h6>
-                    <ul class="footer-links">
-                        <li><a href="">C</a></li>
-                        <li><a href="">UI Design</a></li>
-                        <li><a href="">PHP</a></li>
-                        <li><a href="">Java</a></li>
-                        <li><a href="">Android</a></li>
-                        <li><a href="">Templates</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-xs-4 col-md-3">
-                    <h6>Quick Links</h6>
-                    <ul class="footer-links">
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Contact Us</a></li>
-                        <li><a href="">Contribute</a></li>
-                        <li><a href="">Privacy Policy</a></li>
-                        <li><a href="">Sitemap</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
+          <div class="col-xs-4 col-md-3">
+            <h6>Quick Links</h6>
+            <ul class="footer-links">
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Contribute</a></li>
+              <li><a href="">Privacy Policy</a></li>
+              <li><a href="">Sitemap</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved
-                        <a href="#"></a>.
-                    </p>
-                </div>
+        <hr />
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">
+              Copyright &copy; 2017 All Rights Reserved <a href="#"></a>.
+            </p>
+          </div>
 
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li>
+                <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li>
+                <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+              </li>
+              <li>
+                <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>

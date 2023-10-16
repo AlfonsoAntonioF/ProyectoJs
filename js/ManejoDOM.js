@@ -1,362 +1,309 @@
 // variables
 const EstanteriaGuias = [];
-const EstanteriaExamenes = [];
-let productosCarrito = [];
-let GuiasTotales = 0;
-let ExamenesTotales = 0;
 let op;
 // Variables de captura DOM
-let guardarLibroBtn = document.getElementById("guardarLibroBtn")
-let buscador = document.getElementById("buscador")
-let coincidenciasDiv = document.getElementById("coincidencias")
-let modalBodyCarrito = document.getElementById("modal-bodyCarrito")
-let botonCarrito = document.getElementById("botonCarrito")
-let precioTotal = document.getElementById("precioTotal")
+let guardarGuiaBtn = document.getElementById("guardarGuiaBtn");
+let buscador = document.getElementById("buscador");
+let coincidenciasDiv = document.getElementById("coincidencias");
+let modalBodyCarrito = document.getElementById("modal-bodyCarrito");
+let botonCarrito = document.getElementById("botonCarrito");
+let totalCompra = document.getElementById("totalCompra");
 let containerGuias = document.getElementById("Guias");
-let formCargarLibro = document.getElementById("formCargarLibro")
-let formCargarExamen = document.getElementById("formCargarExamen");
-let containerExamenes = document.getElementById("Examenes");
-let coincidenciasDivExa = document.getElementById("coincidenciasExamenes")
-let buscadorExamen = document.getElementById("buscadorExamen")
+let formCargarGuia = document.getElementById("formCargarGuia");
+let btnFinalizaCompra = document.getElementById("botonFinalizarCompra");
+let selectOrdenarGuia = document.getElementById("selectOrden");
+let loaderTexto = document.getElementById("loaderTexto");
+let loader = document.getElementById("loader");
+
+let productosCarrito = JSON.parse(localStorage.getItem("productosCarrito")) ?? [];
 
 // clases
 class Guias {
-  constructor(id, titulo, precio, area, img) {
+  constructor(id, titulo, area, paquete, precio, img) {
     (this.id = id),
       (this.titulo = titulo),
-      (this.precio = precio),
       (this.area = area),
+      (this.paquete = paquete),
+      (this.precio = precio),
       (this.img = img);
   }
-
-  MostrarInfoGuia() {
-    console.log(
-      `La guia  ${this.titulo} con id:${this.id} pertenece al area ${this.area} y su precio es $${this.precio}`
-    );
-  }
 }
-class ExamenesSimulacion {
-  constructor(id, titulo, precio, area, img) {
-    //atributos-propiedades
-    (this.id = id),
-      (this.titulo = titulo),
-      (this.precio = precio),
-      (this.area = area),
-      (this.img = img);
-  }
-  //métodos en class se declaran por fuera del constructor
-  MostrarInfoGuia() {
-    console.log(
-      `Examen  ${this.titulo} con id:${this.id} pertenece al area ${this.area} y su precio es $${this.precio}`
+
+const CargarEstanteriaGuias = async () => {
+  const resp = await fetch("../js/guias.json");
+  const dataGuia = await resp.json();
+  for (let guia of dataGuia) {
+    let nuevaGuia = new Guias(
+      guia.id,
+      guia.titulo,
+      guia.area,
+      guia.paquete,
+      guia.precio,
+      guia.img
     );
+    EstanteriaGuias.push(nuevaGuia);
   }
-}
-const Guia1 = new Guias(
-  1,
-  "Guia de preparacion para el examen de admision Basico",
-  172.8,
-  "Ing y Ciencias Exactas",
-  "ICEBas.png"
-);
-const Guia2 = new Guias(
-  2,
-  "Guia de preparacion para el examen de admision Basico",
-  152.75,
-  "Ciencias Biologicas , Quimicas y de la salud",
-  "ICEBas.png"
-);
-const Guia3 = new Guias(
-  3,
-  "Guia de preparacion para el examen de admision Basico",
-  158.25,
-  "Ciencias Sociales",
-  "ICEBas.png"
-);
-const Guia4 = new Guias(
-  4,
-  "Guia de preparacion para el examen de admision Basico",
-  145.9,
-  "Humanidades y de las Artes",
-  "ICEBas.png"
-);
-
-const Examen1 = new ExamenesSimulacion(
-  1,
-  "Examen de simulacion Basico",
-  175.6,
-  "Ing y ciencias Exactas",
-  "ICEBas.png"
-);
-const Examen2 = new ExamenesSimulacion(
-  2,
-  "Examen de simulacion Basico",
-  145.65,
-  "Ciencias Biologicas,Quimicas y de la salud",
-  "ICEBas.png"
-);
-const Examen3 = new ExamenesSimulacion(
-  3,
-  "Examen de simulacion Basico",
-  156.85,
-  "Ciencias Sociales",
-  "ICEBas.png"
-);
-const Examen4 = new ExamenesSimulacion(
-  4,
-  "Examen de simulacion Basico",
-  165.7,
-  "Humanidades y de las Artes",
-  "ICEBas.png"
-);
-
-//EstanteriaGuias.push(Guia1,Guia2,Guia3,Guia4)
-//EstanteriaExamenes.push(Examen1,Examen2,Examen3,Examen4)
-
+  localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias));
+};
 
 if (localStorage.getItem("EstanteriaGuias")) {
-  // estanteria = JSON.parse(localStorage.getItem("estanteria"))
-  //hacer for of de estanteria y pasarle new Libro
-  for (let Guia of JSON.parse(localStorage.getItem("EstanteriaGuias"))) {
-    let libroStorage = new Guias(
-      Guia.id,
-      Guia.titulo,
-      Guia.precio,
-      Guia.area,
-      Guia.img
+  for (let guia of JSON.parse(localStorage.getItem("EstanteriaGuias"))) {
+    let guiaStorage = new Guias(
+      guia.id,
+      guia.titulo,
+      guia.area,
+      guia.paquete,
+      guia.precio,
+      guia.img
     );
-    EstanteriaGuias.push(libroStorage);
+    EstanteriaGuias.push(guiaStorage);
   }
 } else {
-  //no existe seteamos porprimera vez
-  console.log("seteamos por primera vez");
-  EstanteriaGuias.push(Guia1, Guia2, Guia3, Guia4);
+  console.log("Se Setea por primera vez ");
+  CargarEstanteriaGuias();
+}
+
+
+
+// Funcion para mostrar los productos en el html
+function mostrarCatalogoGuias(array) {
+  console.log(array);
+  containerGuias.innerHTML = "";
+  for (let Guia of array) {
+    let guiaNewDiv = document.createElement("div");
+    guiaNewDiv.className = "col-12 col-md-6 col-lg-4 my-2";
+    guiaNewDiv.innerHTML = `
+    <div id="${Guia.id}" class="card" style="width: 80%;">
+            <img class="card-img-top img-fluid" style="height: 200px;"src="../assets/img/${
+              Guia.img
+            }" alt="${Guia.titulo} del area  ${Guia.area} ">
+            <div class="card-body">
+                <h4 class="card-title"></h4>
+                <p>${Guia.titulo}</p>
+                <p>Area: ${Guia.area}</p>
+                <p>Paquete: ${Guia.paquete}</p>
+                <p class="${Guia.precio <= 130 && "oferta"}">Precio: ${
+      Guia.precio
+    }</p>
+            <button id="agregarBtn${
+              Guia.id
+            }" class="btn btn-outline-success">Agregar al carrito</button>
+            </div>
+    </div> `;
+    containerGuias.append(guiaNewDiv);
+    let insertarBtn = document.getElementById(`agregarBtn${Guia.id}`);
+    insertarBtn.addEventListener("click", () => {
+      agregarProductoCarrito(Guia);
+    });
+  }
+}
+
+function agregarNuevaGuia(array) {
+  let titulo = document.getElementById("tituloInput");
+  let area = document.getElementById("areaInput");
+  let paquete = document.getElementById("paqueteInput");
+  let precio = document.getElementById("precioInput");
+
+  const nuevaGuia = new Guias(
+    array.length + 1,
+    titulo.value,
+    area.value,
+    paquete.value,
+    parseInt(precio.value),
+    "ICEBas.png"
+  );
+  array.push(nuevaGuia);
+  titulo.value = "";
+  area.value = "";
+  paquete.value = "";
+  precio.value = "";
+
+  swal.fire({
+  
+    title: `La guia se ha agregado de forma correcta`,
+    text: `La ${nuevaGuia.titulo} se ha agregado de forma exitosa !`,
+    imageUrl: `../assets/img/${nuevaGuia.img}`,
+    showConfirmButton: false,
+    icon:"success",
+    timer: 3000,
+
+  });
+
   localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias));
 }
 
-if (localStorage.getItem("EstanteriaExamenes")) {
-  for (let Examen of JSON.parse(localStorage.getItem("EstanteriaExamenes"))){
-    let examenStorage = new ExamenesSimulacion(
-      Examen.id,
-      Examen.titulo,
-      Examen.precio,
-      Examen.area,
-      Examen.img
+// Buscar guia
+function busquedaDatos(elementoBusqueda, array) {
+  let coincidencias = array.filter((Guia) => {
+    return (
+      Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase()) ||
+      Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase())
     );
-    EstanteriaExamenes.push(examenStorage)
-  }
-} else {
-  EstanteriaExamenes.push(Examen1,Examen2,Examen3,Examen4);
-  localStorage.setItem("EstanteriaExamenes",JSON.stringify(EstanteriaExamenes));
-}
-function mostrarCatalogoDOM(array) {
-  //resetear el container
-  containerGuias.innerHTML = "";
-  //for of: para recorrer un array posición a posición id, titulo, precio, area, img
-  for (let Guia of array) {
-    let libroNuevoDiv = document.createElement("div");
-    libroNuevoDiv.className = "col-12 col-md-6 col-lg-4 my-2";
-    libroNuevoDiv.innerHTML = `
-            <div id="${Guia.id}" class="card" >
-                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${Guia.img}" alt="${Guia.titulo} de ${Guia.area} ">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p>Area: ${Guia.area}</p>
-                        <p>${Guia.titulo}</p>
-                        <p class="$${
-                          Guia.precio <= 3000 && "oferta"
-                        }">Precio: $${Guia.precio} M/N</p>
-                    <button id="agregarBtn${
-                      Guia.id
-                    }" class="btn btn-outline-success">Agregar al carrito</button>
-                    </div>
-        </div> `;
-    containerGuias.append(libroNuevoDiv);
-    let agregarBtn = document.getElementById(`agregarBtn${Guia.id}`)
-    console.log(agregarBtn);
-    agregarBtn.addEventListener("click", () => {
-      //console.log("Funciona " + Guia.titulo);
-      //dentro del for of libro es mi objeto
-      //productosCarrito.push(Guia);
-      //console.log(productosCarrito);
-      agregarAlCarrito(Guia)
-    })
-  }
-}
-function mostrarCatalogoDOMExamen(array) {
-  //resetear el container
-  containerExamenes.innerHTML = "";
-  //for of: para recorrer un array posición a posición id, titulo, precio, area, img
-  for (let Examen of array) {
-    let examenNuevoDiv = document.createElement("div");
-    examenNuevoDiv.className = "col-12 col-md-6 col-lg-4 my-2";
-    examenNuevoDiv.innerHTML = `
-            <div id="Ex${Examen.id}" class="card" >
-                    <img class="card-img-top img-fluid" style="height: 200px;"src= "../assets/img/${Examen.img}" alt="${Examen.titulo} de ${Examen.area} ">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p>Area: ${Examen.area}</p>
-                        <p>${Examen.titulo}</p>
-                        <p class="$${
-                          Examen.precio <= 3000 && "oferta"
-                        }">Precio: $${Examen.precio} M/N</p>
-                    <button id="agregarBtnEx${
-                      Examen.id
-                    }" class="btn btn-outline-success">Agregar al carrito</button>
-                    </div>
-        </div> `;
-    containerExamenes.append(examenNuevoDiv);
-    let agregarBtnEx = document.getElementById(`agregarBtnEx${Examen.id}`)
-    console.log(agregarBtnEx);
-    agregarBtnEx.addEventListener("click", () => {
-      //console.log("Funciona " + Guia.titulo);
-      //dentro del for of libro es mi objeto
-      //productosCarrito.push(Guia);
-      //console.log(productosCarrito);
-      agregarAlCarrito(Examen)
-    })
-  }
+  });
+  coincidencias.length > 0
+    ? (mostrarCatalogoGuias(coincidencias), (coincidenciasDiv.innerHTML = ""))
+    : (mostrarCatalogoGuias(array),
+      (coincidenciasDiv.innerHTML = `<h3> No hay coincidencias con su búsqueda, revise nuestro catalogo completo</h3>`));
 }
 
- 
-function agregarLibro(array){
-  
-  let titulo = document.getElementById("tituloInput")
-  let precio = document.getElementById("precioInput")
-  let area = document.getElementById("areaInput")
-  //instanciarlo en un objeto:
-  const nuevoLibro = new Guias (array.length+1,titulo.value, parseInt(precio.value),area.value, "ICEBas.png")
-  array.push(nuevoLibro)  
-  area.value =""
-  titulo.value =""
-  precio.value ="" 
-    
-  // formCargarLibro.reset()  
-  //SETEAR STORAGE 
-  localStorage.setItem("EstanteriaGuias", JSON.stringify(EstanteriaGuias))
+function agregarProductoCarrito(Producto) {
+  let ProductoAgregar = productosCarrito.find((guia) => guia.id == Producto.id);
+
+  ProductoAgregar == undefined
+    ? (productosCarrito.push(Producto),
+      localStorage.setItem(
+        "productosCarrito",
+        JSON.stringify(productosCarrito)
+      ),
+      Toastify({
+        text: `Has agregado ${Producto.titulo} paquete ${Producto.paquete} a tu carrito de compras`,
+        duration: 1000,
+        gravity: "bottom",
+        position: "center",
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast())
+    : Toastify({
+        text: `El articulo ${Producto.titulo} ya existe en su carrito`,
+        duration: 2500,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        style: {
+          background: "linear-gradient(to right, red, orange)",
+          color: "black",
+          fontWeight: "bold",
+        },
+      }).showToast();
 }
-// Buscar guia 
-function busquedaDatos(elementoBusqueda,array){
-  let coincidencias = array.filter(
-    (Guia) => {
-      return Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase()) || Guia.titulo.toLowerCase().includes(elementoBusqueda.toLowerCase())
+
+function CargarProductosalCarrito(array) {
+  modalBodyCarrito.innerHTML = "";
+  array.forEach((productosCarrito) => {
+    modalBodyCarrito.innerHTML += `
+    <div class="card border-primary mb-3" id ="productoCarrito${productosCarrito.id}" style="max-width: 600px;">
+                 <img class="card-img-top" height="auto"  src="../assets/img/${productosCarrito.img}" alt="">
+                 <div class="card-body">
+                        <h4 class="card-title">${productosCarrito.titulo}</h4>
+                        <p class="card-text">Area:${productosCarrito.area}</p>
+                        <p class="card-text">Paqute:${productosCarrito.paquete}</p>
+                         <p class="card-text">$${productosCarrito.precio}</p> 
+                         <button class= "btn btn-danger" id="botonEliminar${productosCarrito.id}"><i class="fas fa-trash-alt"></i></button>
+                 </div>    
+    </div>    
+    `;
+  });
+
+  array.forEach((productosCarrito) => {
+    document
+      .getElementById(`botonEliminar${productosCarrito.id}`)
+      .addEventListener("click", () => {
+        let cardDelProducto = document.getElementById(
+          `productoCarrito${productosCarrito.id}`
+        );
+        cardDelProducto.remove();
+
+        let posicion = array.indexOf(productosCarrito);
+        array.splice(posicion, 1);
+        localStorage.setItem("productosCarrito", JSON.stringify(array));
+        calcularTotal(array);
+      });
+  });
+  calcularTotal(array);
+}
+
+function calcularTotal(array) {
+  const Total = array.reduce((acumulador, guia) => {
+    return acumulador + guia.precio;
+  }, 0);
+  Total > 0
+    ? (totalCompra.innerHTML = `<strong>Total: $ ${Total}  </strong>`)
+    : (totalCompra.innerHTML = `Aun no hay productos en su carrito`);
+
+  return Total;
+}
+
+function compraFinalizada(array) {
+  let Total = calcularTotal(array);
+  swal.fire({
+    text: `El monto total de su compra fue de ${Total} \n LoboSimuladorEGA agrdece su preferencia`,
+    icon: "success",
+  });
+  productosCarrito = [];
+  localStorage.removeItem("productosCarrito");
+}
+
+//Funcion para ordenar con base al precio
+
+function ordenarMayorAMenor(array) {
+  let arrayMayor = array.concat();
+  arrayMayor.sort((a, b) => b.precio - a.precio);
+  mostrarCatalogoGuias(arrayMayor);
+}
+
+function ordenarMenorAMayor(array) {
+  let arrayMenor = array.concat();
+  arrayMenor.sort((a, b) => a.precio - b.precio);
+  mostrarCatalogoGuias(arrayMenor);
+}
+
+function ordenarAlfabeticamenteTitulo(array) {
+  let arrayAlfabetico = array.concat();
+  arrayAlfabetico.sort((a, b) => {
+    if (a.titulo < b.titulo) {
+      return -1;
     }
-  )
-  coincidencias.length > 0 ? ( mostrarCatalogoDOM(coincidencias), coincidenciasDiv.innerHTML=""  ): ( mostrarCatalogoDOM(array),coincidenciasDiv.innerHTML =  `<h3> No hay coincidencias con su búsqueda, revise nuestro catalogo completo</h3>` )
-
-}
-
-function agregarAlCarrito(Producto){
-  let guiaAgregada = productosCarrito.find((Guia) => Guia.id == Producto.id)
-  guiaAgregada == undefined ? (
-    productosCarrito.push(Producto),
-    localStorage.setItem("productosCarrito", JSON.stringify(productosCarrito)),
-    console.log(productosCarrito)):
-    console.log(`La Guia ${Producto.titulo} ya existe en el carrito`)
-}
-
-function cargarProductosCarrito(array){
-  modalBodyCarrito.innerHTML = ""
-  array.forEach(
-      (productoCarrito) => {
-          modalBodyCarrito.innerHTML += `
-          <div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.id}" style="max-width: 540px;">
-               <img class="card-img-top" height="300px" src="../assets/img/${productoCarrito.img}" alt="">
-               <div class="card-body">
-                      <h4 class="card-title">${productoCarrito.titulo}</h4>
-                      <p class="card-text">${productoCarrito.area}</p>
-                       <p class="card-text">$${productoCarrito.precio}</p> 
-                       <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
-               </div>    
-          </div>
-          `
-      }
-  )
-  calcularTotal(array)    
-}
-
-
-function calcularTotal(array){
-  //function con spread (no necesariamente debe ser así)
-  
-  const totalReduce = array.reduce(
-      //dos parámetros: funcion e inicio de valor del acumulador
-      //atención que si su carrito maneja cantidad, debe ser precio *cantidad
-      (acumulador, Guia)=>
-      {return acumulador + Guia.precio},
-      0
-  )
-  totalReduce > 0 ? precioTotal.innerHTML = `<strong>El total de su compra es: ${totalReduce}</strong>` : precioTotal.innerHTML = `No hay productos en el carrito` 
-  //equivalentes:
-  // totalReduce == 0 ? precioTotal.innerHTML = `No hay productos en el carrito`  : precioTotal.innerHTML = `<strong>El total de su compra es: ${totalReduce}</strong>`
-}
-
-//Funcion para ordenar con base al precio 
-
-function ordenarMayorAMenor(array){
-  let arrayMayor = array.concat()
-  arrayMayor.sort(
-    (a,b) => b.precio - a.precio
-  )
-  mostrarCatalogoDOM(arrayMayor)
-}
-
-function ordenarMenorAMayor(array){
-  let arrayMenor = array.concat()
-  arrayMenor.sort(
-    (a,b) => a.precio - b.precio
-  )
-  mostrarCatalogoDOM(arrayMenor)
-
-}
-
-
-function ordenarAlfabeticamenteTitulo(array){
-  let arrayAlfabetico = array.concat()
-  arrayAlfabetico.sort(
-    (a,b) => {
-      if (a.titulo < b.titulo) {return -1}
-      if (a.titulo > b.titulo) {return 1}
-      return 0
+    if (a.titulo > b.titulo) {
+      return 1;
     }
-  )
-  mostrarCatalogoDOM(arrayAlfabetico)
+    return 0;
+  });
+  mostrarCatalogoGuias(arrayAlfabetico);
 }
 
-
-
-
-//Eventos 
-guardarLibroBtn.addEventListener("click",() => {
-  agregarLibro(EstanteriaGuias)
-  mostrarCatalogoDOM(EstanteriaGuias)
-}
-)
+//Eventos
+guardarGuiaBtn.addEventListener("click", () => {
+  agregarNuevaGuia(EstanteriaGuias);
+  mostrarCatalogoGuias(EstanteriaGuias);
+});
 
 buscador.addEventListener("input", () => {
-  console.log(buscador.value)
-  busquedaDatos(buscador.value,EstanteriaGuias)
-})
+  console.log(buscador.value);
+  busquedaDatos(buscador.value, EstanteriaGuias);
+});
 
 botonCarrito.addEventListener("click", () => {
-  cargarProductosCarrito(productosCarrito)
-})
-selectOrden.addEventListener("change", () => {
-  switch (selectOrden.value) {
-    case "1":
-      ordenarMayorAMenor(EstanteriaGuias)
-    break
-    case "2":
-      ordenarMenorAMayor(EstanteriaGuias)
-    break
-    case "3":
-      ordenarAlfabeticamenteTitulo(EstanteriaGuias)
-    break
-    default:
-      mostrarCatalogoDOM(EstanteriaGuias)
+  CargarProductosalCarrito(productosCarrito);
+});
 
+btnFinalizaCompra.addEventListener("click", () => {
+  compraFinalizada(productosCarrito);
+});
+
+selectOrdenarGuia.addEventListener("change", () => {
+  switch (selectOrdenarGuia.value) {
+    case "1":
+      ordenarMayorAMenor(EstanteriaGuias);
+      break;
+    case "2":
+      ordenarMenorAMayor(EstanteriaGuias);
+      break;
+    case "3":
+      ordenarAlfabeticamenteTitulo(EstanteriaGuias);
+      break;
+    default:
+      mostrarCatalogoGuias(EstanteriaGuias);
   }
 });
 
 //CÓDIGO
-mostrarCatalogoDOM(EstanteriaGuias);
-mostrarCatalogoDOMExamen(EstanteriaExamenes);
+
+setTimeout(() => {
+  loaderTexto.innerHTML = `Estan son todas Nuestras Guias`;
+  loader.remove();
+  mostrarCatalogoGuias(EstanteriaGuias);
+}, 2500);
+
+mostrarCatalogoGuias(EstanteriaGuias);
+// mostrarCatalogoDOM(EstanteriaGuias);
+// mostrarCatalogoDOMExamen(EstanteriaExamenes);

@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Ciencias Físico-Matemáticas y de las Ingenierías",
+        "paquete": "Basico",
+        "precio": 150,
+        "img": "ICEBas.png"
+    },
+    {
+        "id": 2,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Ciencias Físico-Matemáticas y de las Ingenierías",
+        "paquete": "Estandar",
+        "precio": 170,
+        "img": "ICEBas.png"
+    },
+    {
+        
+        "id": 3,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Ciencias Físico-Matemáticas y de las Ingenierías",
+        "paquete": "Premium",
+        "precio": 220,
+        "img": "ICEBas.png"
+    },
+    {
+        "id": 4,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Ciencias Biológicas y de la Salud",
+        "paquete": "Basico",
+        "precio": 170,
+        "img": "ICEBas.png"
+    },
+    {
+        "id": 5,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Ciencias Sociales",
+        "paquete": "Basico",
+        "precio": 189.99,
+        "img": "ICEBas.png"
+    },
+    {
+        "id": 6,
+        "titulo": "Guia de Preparacion para el Examen de Admision 2024",
+        "area": "Artes y Humanidades",
+        "paquete": "Basico",
+        "precio": 175.80,
+        "img": "ICEBas.png"
+    }
+]

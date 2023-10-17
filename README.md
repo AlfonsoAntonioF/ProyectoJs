@@ -4,9 +4,9 @@ LoboSimuladorEGA
 
 Descripcion del Proyecto Final 
 
-Es una pagina que simula la venta de guias de preparacion para el examen de admision a la Universidad 
-En la seccion de Guias esta integrado la simulacion del curso JS
-En esta seccion se pueden obervar las guias que estan cargas por default 
+Es una pagina que simula la venta de guias de preparacion para el examen de admision a la Universidad. 
+En la seccion de Guias esta integrado la simulacion del curso JS.
+En esta seccion se pueden obervar las guias que estan cargas por default, 
 ahi mismo tene,os un menu en donde se puede realizar una busquda por titulo 
 tambien un opcion para cargar una nueva guia, cada vez que se agrega una nueva guia 
 se muestra una pequeña ventana con un mensaje de exito en donde se muestra la informacion de la guia ingresada.
